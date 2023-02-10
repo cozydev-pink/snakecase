@@ -19,7 +19,7 @@ package pink.cozydev.snakecase
 import cats.parse.{Parser => P}
 import cats.parse.Rfc5234.digit
 
-final class SnakeCase private (override val toString: String)
+case class SnakeCase private (value: String)
 object SnakeCase {
 
   // "[a-z][a-z0-9_]+"
@@ -28,5 +28,6 @@ object SnakeCase {
   val snake: P[String] =
     (lowAlpha ~ (lowAlpha | digit | underscore).rep0).string
 
-  def unsafeFromString(value: String): SnakeCase = new SnakeCase(value)
+  def unsafeFromString(value: String): SnakeCase =
+    new SnakeCase(value)
 }
