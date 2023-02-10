@@ -16,10 +16,17 @@
 
 package pink.cozydev.snakecase
 
-import cats.effect.{IO, IOApp}
+import cats.parse.{Parser => P}
+import cats.parse.Rfc5234.digit
 
-object Main extends IOApp.Simple {
+final class SnakeCase private (override val toString: String)
+object SnakeCase {
 
-  def run: IO[Unit] =
-    IO.println("Hello sbt-typelevel!")
+  // "[a-z][a-z0-9_]+"
+  val lowAlpha: P[Char] = P.charIn('a' to 'z')
+  val underscore: P[Char] = P.char('_').as('_')
+  val snake: P[String] =
+    (lowAlpha ~ (lowAlpha | digit | underscore).rep0).string
+
+  def unsafeFromString(value: String): SnakeCase = new SnakeCase(value)
 }
