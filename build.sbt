@@ -26,6 +26,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
   .in(file("core"))
   .settings(
     name := "snakecase",
+    scalacOptions := scalacOptions.value.filterNot(_ == "-source:3.0-migration"),
     libraryDependencies ++= Seq(
       "org.typelevel" %%% "cats-core" % "2.9.0",
       "org.typelevel" %%% "cats-parse" % "0.3.9",
