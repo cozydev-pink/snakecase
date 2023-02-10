@@ -19,7 +19,7 @@ package pink.cozydev.snakecase
 import cats.parse.{Parser => P}
 import cats.parse.Rfc5234.digit
 
-case class SnakeCase private (value: String)
+final class SnakeCase private (override val toString: String)
 object SnakeCase {
 
   // "[a-z][a-z0-9_]+"
