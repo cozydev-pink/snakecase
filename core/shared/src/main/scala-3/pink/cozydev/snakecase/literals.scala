@@ -27,7 +27,7 @@ object literals {
   object SnakeCaseLiteral extends Literally[SnakeCase] {
     def validate(s: String)(using Quotes) =
       SnakeCase.snake.parseAll(s) match {
-        case Left(err) => Left(s"${err}")
+        case Left(err) => Left(s"Invalid SnakeCase -- string may only contain a-z, 0-9, _, and must start with a letter")
         case Right(_) => Right('{SnakeCase.unsafeFromString(${Expr(s)})})
     }
   }

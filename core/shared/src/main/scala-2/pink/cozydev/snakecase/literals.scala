@@ -27,8 +27,11 @@ object literals {
     def validate(c: Context)(s: String) = {
       import c.universe._
       SnakeCase.snake.parseAll(s) match {
-        case Left(err) => Left(s"$err")
-        case Right(_)  => Right(c.Expr(q"SnakeCase.unsafeFromString($s)"))
+        case Left(_) =>
+          Left(
+            s"Invalid SnakeCase -- string may only contain a-z, 0-9, _, and must start with a letter"
+          )
+        case Right(_) => Right(c.Expr(q"SnakeCase.unsafeFromString($s)"))
       }
     }
 
