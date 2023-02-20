@@ -50,3 +50,18 @@ class SnakeCaseSuite extends munit.FunSuite {
     assert(snake.parseAll("sam is cool").isLeft)
   }
 }
+
+class LiteralSnakeCaseSuite extends munit.FunSuite {
+  import pink.cozydev.snakecase.literals._
+
+  test("snake_case string construction") {
+    assertEquals(snake"sam_is_cool", SnakeCase.unsafeFromString("sam_is_cool"))
+  }
+
+  test("a bad string should not compile") {
+    assert(compileErrors("""snake"_"""").nonEmpty)
+    assert(compileErrors("""snake"12"""").nonEmpty)
+    assert(compileErrors("""snake"sam_IS_cool"""").nonEmpty)
+    assert(compileErrors("""snake"sam is cool"""").nonEmpty)
+  }
+}

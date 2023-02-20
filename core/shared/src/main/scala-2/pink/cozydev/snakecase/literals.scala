@@ -16,18 +16,23 @@
 
 package pink.cozydev.snakecase
 
-import cats.parse.{Parser => P}
-import cats.parse.Rfc5234.digit
+import org.typelevel.literally.Literally
 
-final case class SnakeCase private (override val toString: String)
-object SnakeCase {
+object literals {
+  implicit class snake(val sc: StringContext) extends AnyVal {
+    def snake(args: Any*): SnakeCase = macro SnakeCaseLiteral.make
+  }
 
-  // "[a-z][a-z0-9_]+"
-  val lowAlpha: P[Char] = P.charIn('a' to 'z')
-  val underscore: P[Char] = P.char('_').as('_')
-  val snake: P[String] =
-    (lowAlpha ~ (lowAlpha | digit | underscore).rep0).string
+  object SnakeCaseLiteral extends Literally[SnakeCase] {
+    def validate(c: Context)(s: String) = {
+      import c.universe._
+      SnakeCase.snake.parseAll(s) match {
+        case Left(err) => Left(s"$err")
+        case Right(_)  => Right(c.Expr(q"SnakeCase.unsafeFromString($s)"))
+      }
+    }
 
-  def unsafeFromString(value: String): SnakeCase =
-    new SnakeCase(value)
+    def make(c: Context)(args: c.Expr[Any]*): c.Expr[SnakeCase] =
+      apply(c)(args: _*)
+  }
 }
