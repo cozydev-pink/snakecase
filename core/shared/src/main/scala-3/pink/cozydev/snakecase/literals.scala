@@ -21,14 +21,17 @@ import org.typelevel.literally.Literally
 object literals {
   extension (inline ctx: StringContext) {
     inline def snake(inline args: Any*): SnakeCase =
-      ${SnakeCaseLiteral('ctx, 'args)}
+      ${ SnakeCaseLiteral('ctx, 'args) }
   }
 
   object SnakeCaseLiteral extends Literally[SnakeCase] {
     def validate(s: String)(using Quotes) =
       SnakeCase.snake.parseAll(s) match {
-        case Left(err) => Left(s"Invalid SnakeCase -- string may only contain a-z, 0-9, _, and must start with a letter")
-        case Right(_) => Right('{SnakeCase.unsafeFromString(${Expr(s)})})
-    }
+        case Left(err) =>
+          Left(
+            s"Invalid SnakeCase -- string may only contain a-z, 0-9, _, and must start with a letter"
+          )
+        case Right(_) => Right('{ SnakeCase.unsafeFromString(${ Expr(s) }) })
+      }
   }
 }
