@@ -16,13 +16,22 @@
 
 package pink.cozydev.snakecase
 
-import munit.CatsEffectSuite
+import org.typelevel.literally.Literally
 
-class MainSuite extends CatsEffectSuite {
-
-  test("Main should exit succesfully") {
-    val main = Main.run.attempt
-    assertIO(main, Right(()))
+object literals {
+  extension (inline ctx: StringContext) {
+    inline def snake(inline args: Any*): SnakeCase =
+      ${ SnakeCaseLiteral('ctx, 'args) }
   }
 
+  object SnakeCaseLiteral extends Literally[SnakeCase] {
+    def validate(s: String)(using Quotes) =
+      SnakeCase.snake.parseAll(s) match {
+        case Left(err) =>
+          Left(
+            s"Invalid SnakeCase -- string may only contain a-z, 0-9, _, and must start with a letter"
+          )
+        case Right(_) => Right('{ SnakeCase.unsafeFromString(${ Expr(s) }) })
+      }
+  }
 }
