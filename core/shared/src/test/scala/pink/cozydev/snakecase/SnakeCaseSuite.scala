@@ -52,7 +52,7 @@ class SnakeCaseSuite extends munit.FunSuite {
 }
 
 class LiteralSnakeCaseSuite extends munit.FunSuite {
-  import pink.cozydev.snakecase.literals._
+  import pink.cozydev.snakecase._
 
   test("snake_case string construction") {
     assertEquals(snake"sam_is_cool", SnakeCase.unsafeFromString("sam_is_cool"))

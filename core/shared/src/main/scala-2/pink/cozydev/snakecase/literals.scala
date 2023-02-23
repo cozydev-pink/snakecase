@@ -19,10 +19,6 @@ package pink.cozydev.snakecase
 import org.typelevel.literally.Literally
 
 object literals {
-  implicit class snake(val sc: StringContext) extends AnyVal {
-    def snake(args: Any*): SnakeCase = macro SnakeCaseLiteral.make
-  }
-
   object SnakeCaseLiteral extends Literally[SnakeCase] {
     def validate(c: Context)(s: String) = {
       import c.universe._

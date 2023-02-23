@@ -14,19 +14,13 @@
  * limitations under the License.
  */
 
-package pink.cozydev.snakecase
+package pink.cozydev
 
-import org.typelevel.literally.Literally
+import pink.cozydev.snakecase.literals._
 
-object literals {
-  object SnakeCaseLiteral extends Literally[SnakeCase] {
-    def validate(s: String)(using Quotes) =
-      SnakeCase.snake.parseAll(s) match {
-        case Left(err) =>
-          Left(
-            s"Invalid SnakeCase -- string may only contain a-z, 0-9, _, and must start with a letter"
-          )
-        case Right(_) => Right('{ SnakeCase.unsafeFromString(${ Expr(s) }) })
-      }
+package object snakecase {
+  extension (inline ctx: StringContext) {
+    inline def snake(inline args: Any*): SnakeCase =
+      ${ SnakeCaseLiteral('ctx, 'args) }
   }
 }
