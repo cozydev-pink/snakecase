@@ -19,11 +19,6 @@ package pink.cozydev.snakecase
 import org.typelevel.literally.Literally
 
 object literals {
-  extension (inline ctx: StringContext) {
-    inline def snake(inline args: Any*): SnakeCase =
-      ${ SnakeCaseLiteral('ctx, 'args) }
-  }
-
   object SnakeCaseLiteral extends Literally[SnakeCase] {
     def validate(s: String)(using Quotes) =
       SnakeCase.snake.parseAll(s) match {

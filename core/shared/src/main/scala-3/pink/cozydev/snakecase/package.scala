@@ -16,4 +16,11 @@
 
 package pink.cozydev
 
-package object snakecase
+import pink.cozydev.snakecase.literals._
+
+package object snakecase {
+  extension (inline ctx: StringContext) {
+    inline def snake(inline args: Any*): SnakeCase =
+      ${ SnakeCaseLiteral('ctx, 'args) }
+  }
+}
