@@ -36,6 +36,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
     )
   )
 
+import laika.helium.config.{IconLink, HeliumIcon}
 lazy val docs = project
   .in(file("site"))
   .enablePlugins(TypelevelSitePlugin)
@@ -43,5 +44,13 @@ lazy val docs = project
   .settings(
     tlSiteRelatedProjects := Seq(
       "literally" -> url("https://github.com/typelevel/literally")
-    )
+    ),
+    tlSiteHeliumConfig := {
+      tlSiteHeliumConfig.value.site.topNavigationBar(
+        homeLink = IconLink.external(
+          "https://github.com/cozydev-pink/snakecase",
+          HeliumIcon.github
+        )
+      )
+    }
   )
