@@ -39,6 +39,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
 lazy val docs = project
   .in(file("site"))
   .enablePlugins(TypelevelSitePlugin)
+  .dependsOn(core.jvm)
   .settings(
     tlSiteRelatedProjects := Seq(
       "literally" -> url("https://github.com/typelevel/literally")
