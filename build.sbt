@@ -22,7 +22,7 @@ ThisBuild / scalaVersion := Scala213 // the default Scala
 
 lazy val root = tlCrossRootProject.aggregate(core)
 
-lazy val core = crossProject(JVMPlatform, JSPlatform)
+lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .in(file("core"))
   .settings(
     name := "snakecase",
@@ -32,7 +32,7 @@ lazy val core = crossProject(JVMPlatform, JSPlatform)
       "org.typelevel" %%% "cats-core" % "2.9.0",
       "org.typelevel" %%% "cats-parse" % "0.3.9",
       "org.typelevel" %%% "literally" % "1.1.0",
-      "org.scalameta" %%% "munit" % "0.7.29" % Test
+      "org.scalameta" %%% "munit" % "1.0.0-M7" % Test
     )
   )
 
@@ -42,15 +42,19 @@ lazy val docs = project
   .enablePlugins(TypelevelSitePlugin)
   .dependsOn(core.jvm)
   .settings(
+    tlFatalWarningsInCi := false,
     tlSiteRelatedProjects := Seq(
       "literally" -> url("https://github.com/typelevel/literally")
     ),
-    tlSiteHeliumConfig := {
-      tlSiteHeliumConfig.value.site.topNavigationBar(
-        homeLink = IconLink.external(
-          "https://github.com/cozydev-pink/snakecase",
-          HeliumIcon.github
+    tlSiteHelium := {
+      tlSiteHelium.value.site.darkMode.disabled.site
+        .resetDefaults(topNavigation = true)
+        .site
+        .topNavigationBar(
+          homeLink = IconLink.external(
+            "https://github.com/cozydev-pink/snakecase",
+            HeliumIcon.github
+          )
         )
-      )
     }
   )
