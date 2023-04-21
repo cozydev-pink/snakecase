@@ -46,12 +46,15 @@ lazy val docs = project
     tlSiteRelatedProjects := Seq(
       "literally" -> url("https://github.com/typelevel/literally")
     ),
-    tlSiteHeliumConfig := {
-      tlSiteHeliumConfig.value.site.topNavigationBar(
-        homeLink = IconLink.external(
-          "https://github.com/cozydev-pink/snakecase",
-          HeliumIcon.github
+    tlSiteHelium := {
+      tlSiteHelium.value.site.darkMode.disabled.site
+        .resetDefaults(topNavigation = true)
+        .site
+        .topNavigationBar(
+          homeLink = IconLink.external(
+            "https://github.com/cozydev-pink/snakecase",
+            HeliumIcon.github
+          )
         )
-      )
     }
   )
