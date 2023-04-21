@@ -42,6 +42,7 @@ lazy val docs = project
   .enablePlugins(TypelevelSitePlugin)
   .dependsOn(core.jvm)
   .settings(
+    tlFatalWarningsInCi := false,
     tlSiteRelatedProjects := Seq(
       "literally" -> url("https://github.com/typelevel/literally")
     ),
