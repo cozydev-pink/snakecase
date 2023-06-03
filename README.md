@@ -8,5 +8,5 @@ https://cozydev-pink.github.io/snakecase/
 
 
 ```scala
-libraryDependencies += "pink.cozydev" %% "snakecase" % "0.0.2")
+libraryDependencies += "pink.cozydev" %% "snakecase" % "0.0.3")
 ```
