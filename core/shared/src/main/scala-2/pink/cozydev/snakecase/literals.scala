@@ -20,7 +20,7 @@ import org.typelevel.literally.Literally
 
 object literals {
   object SnakeCaseLiteral extends Literally[SnakeCase] {
-    def validate(c: Context)(s: String) = {
+    def validate(c: Context)(s: String): Either[String, c.Expr[SnakeCase]] = {
       import c.universe._
       SnakeCase.snake.parseAll(s) match {
         case Left(_) =>
