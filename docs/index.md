@@ -9,7 +9,7 @@ For the purposes of this library, a valid `snake_case` string:
 
 ### Usage
 
-This library is currently available for Scala binary versions 2.13 and 3.2.
+This library is currently available for Scala binary versions 2.13 and 3.
 
 To use the latest version, include the following in your `build.sbt`:
 
