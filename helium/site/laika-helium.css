@@ -1,6 +1,6 @@
 :root {
   --primary-color: #007c99;
-  --primary-light: #ebf6f7;
+  --primary-light: #eef5f6;
   --primary-medium: #a7d4de;
   --secondary-color: #931813;
   --text-color: #5f5f5f;
@@ -871,6 +871,13 @@ code .number-literal, .string-literal, .literal-value, .boolean-literal, .char-l
 }
 code .type-name, code .tag-name, code .xml-dtd-tag-name, code .markup-fence {
   color: var(--syntax-wheel5);
+}
+
+code .diff-added {
+  background-color: rgb(0 175 0 / 40%);
+}
+code .diff-removed {
+  background-color: rgb(250 0 0 / 40%);
 }
 
 
