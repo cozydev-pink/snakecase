@@ -38,7 +38,12 @@ lazy val core = crossProject(JVMPlatform, JSPlatform, NativePlatform)
     )
   )
 
-import laika.helium.config.{IconLink, HeliumIcon, ThemeNavigationSection, TextLink}
+import laika.helium.config.{
+  IconLink,
+  HeliumIcon,
+  ThemeNavigationSection,
+  TextLink
+}
 lazy val docs = project
   .in(file("site"))
   .enablePlugins(TypelevelSitePlugin)
@@ -60,7 +65,8 @@ lazy val docs = project
           Seq(
             ThemeNavigationSection(
               "Related Projects",
-              TextLink.external("https:/github.com/typelevel/literally", "literally"),
+              TextLink
+                .external("https:/github.com/typelevel/literally", "literally")
             )
           )
         )
