@@ -65,7 +65,7 @@ lazy val docs = project
             ThemeNavigationSection(
               "Related Projects",
               TextLink
-                .external("https:/github.com/typelevel/literally", "literally")
+                .external("https://github.com/typelevel/literally", "literally")
             )
           )
         )
