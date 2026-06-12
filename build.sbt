@@ -17,7 +17,7 @@ ThisBuild / tlSitePublishBranch := Some("main")
 
 val Scala213 = "2.13.18"
 
-ThisBuild / crossScalaVersions := Seq(Scala213, "3.3.7")
+ThisBuild / crossScalaVersions := Seq(Scala213, "3.3.8")
 
 ThisBuild / scalaVersion := Scala213 // the default Scala
 
